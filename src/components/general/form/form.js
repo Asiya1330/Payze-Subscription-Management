@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { useState } from "react";
-
 const FormComponent = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -33,7 +32,8 @@ const FormComponent = () => {
         Welcome To XXRIDE Driver
       </h1>
 
-      <div className="bg-[#00000047] text-white p-8 rounded-md shadow-lg w-full sm:w-96 lg:w-1/2 ">
+      <div className="bg-[#00000047] text-white p-8 rounded-md shadow-lg  w-11/12 lg:w-1/2 box">
+        <div className="form">
         <h2 className="text-2xl font-semibold mb-4 text-center">
           Payment Registration Form
         </h2>
@@ -47,7 +47,7 @@ const FormComponent = () => {
                 type="text"
                 id="firstName"
                 name="firstName"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.firstName}
                 onChange={handleChange}
               />
@@ -60,7 +60,7 @@ const FormComponent = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.lastName}
                 onChange={handleChange}
               />
@@ -73,7 +73,7 @@ const FormComponent = () => {
                 type="text"
                 id="country"
                 name="country"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.country}
                 onChange={handleChange}
               />
@@ -86,7 +86,7 @@ const FormComponent = () => {
                 type="text"
                 id="city"
                 name="city"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.city}
                 onChange={handleChange}
               />
@@ -112,7 +112,7 @@ const FormComponent = () => {
                 type="phone"
                 id="phone"
                 name="phone"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.phone}
                 onChange={handleChange}
               />
@@ -125,7 +125,7 @@ const FormComponent = () => {
                 type="text"
                 id="govtId"
                 name="govtId"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.govtId}
                 onChange={handleChange}
               />
@@ -138,7 +138,7 @@ const FormComponent = () => {
                 type="text"
                 id="rideId"
                 name="rideId"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.rideId}
                 onChange={handleChange}
               />
@@ -150,6 +150,7 @@ const FormComponent = () => {
             </button>
           </div>
         </form>
+      </div>
       </div>
     </div>
   );
