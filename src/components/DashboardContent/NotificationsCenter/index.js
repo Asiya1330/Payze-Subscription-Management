@@ -16,16 +16,16 @@ const NotificationsCenter = ({ open }) => {
         right: "10px",
       }}
     >
-      <div class="title-wrap flex items-center p-2">
-        <h3 class="text-md mb-0 font-medium text-gray-900">Notifications</h3>
-        <div class="small ml-auto text-blue-500">Mark all as read</div>
+      <div className="title-wrap flex items-center p-2">
+        <h3 className="text-md mb-0 font-medium text-gray-900">Notifications</h3>
+        <div className="small ml-auto text-blue-500">Mark all as read</div>
       </div>
       <Divider></Divider>
-      <ul class="custom-notifications">
-        <li class="unread p-4 hover:bg-gray-200 bg-orange-50 ">
-          <div class="flex">
+      <ul className="custom-notifications">
+        <li className="unread p-4 hover:bg-gray-200 bg-orange-50 ">
+          <div className="flex">
             <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
-            <div class="ml-2">
+            <div className="ml-2">
               <strong className="text-gray-900">Claudia Gideon</strong> marked
               the task done a day ago
             </div>
@@ -33,10 +33,10 @@ const NotificationsCenter = ({ open }) => {
         </li>
         <Divider />
 
-        <li class="p-4 unread hover:bg-gray-200 bg-orange-50">
-          <div class="flex">
+        <li className="p-4 unread hover:bg-gray-200 bg-orange-50">
+          <div className="flex">
             <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
-            <div class="ml-2">
+            <div className="ml-2">
               <strong className="text-gray-900">Alex Stafford</strong> marked
               the task done a day ago
             </div>
@@ -45,9 +45,9 @@ const NotificationsCenter = ({ open }) => {
         <Divider />
 
         <li className="p-4 hover:bg-gray-200">
-          <div class="flex">
+          <div className="flex">
             <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
-            <div class="text ml-2">
+            <div className="text ml-2">
               <strong className="text-gray-900">Devin Richards</strong>{" "}
               mentioned you in her comment on Invoices 2 days ago
             </div>
@@ -56,9 +56,9 @@ const NotificationsCenter = ({ open }) => {
         <Divider />
 
         <li className="p-4 hover:bg-gray-200">
-          <div class="flex">
+          <div className="flex">
             <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
-            <div class="ml-2">
+            <div className="ml-2">
               <strong className="text-gray-900">Alex Stafford</strong> marked
               the task done a day ago
             </div>
@@ -66,9 +66,9 @@ const NotificationsCenter = ({ open }) => {
         </li>
         <Divider />
         <li className="p-4 hover:bg-gray-200">
-          <div class="flex">
+          <div className="flex">
             <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
-            <div class="ml-2">
+            <div className="ml-2">
               <strong className="text-gray-900">Devin Richards</strong>{" "}
               mentioned you in her comment on Invoices 2 days ago
             </div>
@@ -77,8 +77,8 @@ const NotificationsCenter = ({ open }) => {
         <Divider />
       </ul>
       <Divider />
-      <p class="text-center m-0 text-blue-500 p-2">
-        <a href="#" class="small">
+      <p className="text-center m-0 text-blue-500 p-2">
+        <a href="#" className="small">
           View All
         </a>
       </p>
