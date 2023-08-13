@@ -24,11 +24,13 @@ const Navbar = () => {
           </div>
 
           <div className="relative">
-            <NotificationsIcon
+            {/* client don't need Notification center */}
+            
+            {/* <NotificationsIcon
               className="cursor-pointer"
               onClick={() => setNotifyOpen(!notifyOpen)}
             />
-            <NotificationsCenter open={notifyOpen} />
+            <NotificationsCenter open={notifyOpen} /> */}
           </div>
         </nav>
       </div>
