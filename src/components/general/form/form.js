@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ const FormComponent = () => {
     rideId: "",
   });
 
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,8 +23,7 @@ const FormComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    router.push("/payment");
   };
 
   return (
@@ -44,6 +44,7 @@ const FormComponent = () => {
                 First Name
               </label>
               <input
+                required
                 type="text"
                 id="firstName"
                 name="firstName"
@@ -57,6 +58,7 @@ const FormComponent = () => {
                 Last Name
               </label>
               <input
+                required
                 type="text"
                 id="lastName"
                 name="lastName"
@@ -70,6 +72,7 @@ const FormComponent = () => {
                 Country
               </label>
               <input
+                required
                 type="text"
                 id="country"
                 name="country"
@@ -83,6 +86,7 @@ const FormComponent = () => {
                 City
               </label>
               <input
+                required
                 type="text"
                 id="city"
                 name="city"
@@ -96,10 +100,11 @@ const FormComponent = () => {
                 Email
               </label>
               <input
+                required
                 type="email"
                 id="email"
                 name="email"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-2 px-3 text-black"
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -109,6 +114,7 @@ const FormComponent = () => {
                 Phone Number
               </label>
               <input
+                required
                 type="phone"
                 id="phone"
                 name="phone"
@@ -122,6 +128,7 @@ const FormComponent = () => {
                 Government ID Number
               </label>
               <input
+                required
                 type="text"
                 id="govtId"
                 name="govtId"
@@ -135,6 +142,7 @@ const FormComponent = () => {
                 XXRIDE ID Number
               </label>
               <input
+                required
                 type="text"
                 id="rideId"
                 name="rideId"
@@ -145,8 +153,11 @@ const FormComponent = () => {
             </div>
           </div>
           <div className="mb-4">
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
-              <Link href="/payment">Submit</Link>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+            >
+              Submit
             </button>
           </div>
         </form>
