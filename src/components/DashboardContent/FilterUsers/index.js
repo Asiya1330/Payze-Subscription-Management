@@ -12,6 +12,7 @@ const FilterButton = ({
   setStartDate,
   endDate,
   setEndDate,
+  setHitCustomfilter
 }) => {
   const handleOptionSelect = (option) => {
     setFilterOption(option);
@@ -21,8 +22,8 @@ const FilterButton = ({
 
   const handleFilter = () => {
     if (endDate && startDate) {
-      console.log("ede");
       setFilterCustom(true);
+      setHitCustomfilter(true)
     }
   };
 

@@ -2,85 +2,86 @@ import React, { useEffect, useState } from "react";
 import FilterUsers from "../FilterUsers";
 import { Users } from "../dashboardData";
 
-const TopDashboard = () => {
-  const [filterOption, setFilterOption] = useState(null);
+const TopDashboard = ({
+  setFilteredRiders,
+  setFilterOption,
+  filterOption,
+  setHitCustomfilter,
+}) => {
   const [filteredUsers, setfilteredUsers] = useState({});
   const [filterCustom, setFilterCustom] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
   useEffect(() => {
-    if (filterOption) {
+    if (filterOption && filterOption.value !== "custom") {
       const filteredData = Users.reduce(
         (acc, user) => {
-          console.log(
-            filterOption.value,
-            filterOption.value === "monthly",
-            typeof filterOption.value
-          );
           if (filterOption.value === "monthly") {
             const currentDate = new Date();
             const thirtyDaysAgo = new Date(currentDate);
             thirtyDaysAgo.setDate(currentDate.getDate() - 30);
-            console.log(user.eDate, thirtyDaysAgo, user.eDate > thirtyDaysAgo);
 
-            if (user.eDate > thirtyDaysAgo) {
+            if (user.sDate > thirtyDaysAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           if (filterOption.value === "yearly") {
             const currentDate = new Date();
             const yearAgo = new Date(currentDate);
             yearAgo.setDate(currentDate.getDate() - 365);
-            console.log(user.eDate, yearAgo, user.eDate > yearAgo);
-            if (user.eDate > yearAgo) {
+            if (user.sDate > yearAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           if (filterOption.value === "day") {
             const currentDate = new Date();
             const oneDayAgo = new Date(currentDate);
             oneDayAgo.setDate(currentDate.getDate() - 1);
-            console.log(user.eDate, oneDayAgo, user.eDate > oneDayAgo);
 
-            if (user.eDate > oneDayAgo) {
+            if (user.sDate > oneDayAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           return acc;
         },
 
-        { users: 0, revenue: 0 }
+        { users: 0, revenue: 0, riders: [] }
       );
-      console.log(filteredData);
+      setFilteredRiders(filteredData.riders);
       setfilteredUsers(filteredData);
     }
-  }, [filterOption]);
-  console.log(filterCustom);
+  }, [filterOption, startDate, endDate]);
+
   useEffect(() => {
-    console.log(startDate, endDate, filterCustom);
     if (filterCustom) {
       const filteredData = Users.reduce(
         (acc, user) => {
           if (filterOption.value === "custom") {
-            if (user.eDate > startDate && user.eDate < endDate) {
+            if (user.sDate > startDate && user.sDate < endDate) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           return acc;
         },
 
-        { users: 0, revenue: 0 }
+        { users: 0, revenue: 0, riders: [] }
       );
+      setFilteredRiders(filteredData.riders);
       setfilteredUsers(filteredData);
       setStartDate(null);
       setEndDate(null);
       setFilterCustom(false);
     }
-  }, [filterCustom]);
+  }, [filterCustom, filterOption, startDate, endDate]);
 
   return (
     <div className="mt-4">
@@ -92,6 +93,7 @@ const TopDashboard = () => {
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
+        setHitCustomfilter={setHitCustomfilter}
       />
 
       <div className="text-3xl font-bold text-slate-900 pl-4">
@@ -99,7 +101,7 @@ const TopDashboard = () => {
           ? filterOption.label
           : "Overall Stats"}
       </div>
-      <div className="flex flex-wrap -mx-6">
+      <div className="flex flex-wrap ">
         <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
           <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
             <div className="p-3 rounded-full bg-indigo-600 bg-opacity-75">
@@ -195,13 +197,13 @@ const TopDashboard = () => {
                   d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
             </div>

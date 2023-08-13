@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TopDashboard from "./TopDashboardContent";
 import { Users } from "./dashboardData";
 import { format } from "date-fns";
 
 const DashboardContent = () => {
+  const [filteredRiders, setFilteredRiders] = useState([]);
+  const [filterOption, setFilterOption] = useState(null);
+  const [riders, setRiders] = useState(Users);
+  const [hitCustomFilter, setHitCustomfilter] = useState(false);
+
+  useEffect(() => {
+    if (filterOption) {
+      if (filterOption.value !== "custom") {
+        setRiders(filteredRiders);
+      }
+    }
+  }, [filterOption, filteredRiders, hitCustomFilter]);
+
+  useEffect(() => {
+    if (filterOption?.value === "custom") {
+      if (hitCustomFilter && filteredRiders.length) {
+        setRiders(filteredRiders);
+        setHitCustomfilter(false);
+        setFilteredRiders([]);
+      }
+    }
+  }, [filterOption, hitCustomFilter, filteredRiders, riders]);
+
   return (
     <div className="dashboard-content w-full">
-      <TopDashboard />
+      <TopDashboard
+        setFilteredRiders={setFilteredRiders}
+        filterOption={filterOption}
+        setFilterOption={setFilterOption}
+        setHitCustomfilter={setHitCustomfilter}
+      />
 
       <div className="mt-8"></div>
 
       <div className="flex flex-col mt-8">
-        <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="-my-2 py-2 overflow-x-auto sm:px-6 lg:px-8">
           <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <table className="min-w-full">
               <thead>
                 <tr>
                   <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Name
+                  </th>
+                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    Rider ID
                   </th>
                   <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
@@ -32,6 +63,9 @@ const DashboardContent = () => {
                     Country
                   </th>
                   <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    City
+                  </th>
+                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
                   <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -41,7 +75,7 @@ const DashboardContent = () => {
               </thead>
 
               <tbody className="bg-white">
-                {Users.map((user, index) => (
+                {riders.map((user, index) => (
                   <tr className="hover:bg-gray-100" key={index}>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="flex items-center">
@@ -64,13 +98,24 @@ const DashboardContent = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
+                        {user.riderId}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <div className="text-sm leading-5 font-medium text-gray-900">
                         {format(user.sDate, "EEE MMM dd yyyy HH:mm:ss")}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {user.status}
-                      </span>
+                      {user.status === "active" ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {user.status}
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                          {user.status}
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
@@ -80,6 +125,11 @@ const DashboardContent = () => {
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.country}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <div className="text-sm leading-5 font-medium text-gray-900">
+                        {user.city}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
