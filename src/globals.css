@@ -93,7 +93,7 @@
 .hamburger {
   cursor: pointer;
   width: 24px;
-  height: 24px;
+  height: 21px;
   margin: 24px;
   transition: all 0.25s;
   position: absolute;

@@ -2,85 +2,86 @@ import React, { useEffect, useState } from "react";
 import FilterUsers from "../FilterUsers";
 import { Users } from "../dashboardData";
 
-const TopDashboard = () => {
-  const [filterOption, setFilterOption] = useState(null);
+const TopDashboard = ({
+  setFilteredRiders,
+  setFilterOption,
+  filterOption,
+  setHitCustomfilter,
+}) => {
   const [filteredUsers, setfilteredUsers] = useState({});
   const [filterCustom, setFilterCustom] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
   useEffect(() => {
-    if (filterOption) {
+    if (filterOption && filterOption.value !== "custom") {
       const filteredData = Users.reduce(
         (acc, user) => {
-          console.log(
-            filterOption.value,
-            filterOption.value === "monthly",
-            typeof filterOption.value
-          );
           if (filterOption.value === "monthly") {
             const currentDate = new Date();
             const thirtyDaysAgo = new Date(currentDate);
             thirtyDaysAgo.setDate(currentDate.getDate() - 30);
-            console.log(user.eDate, thirtyDaysAgo, user.eDate > thirtyDaysAgo);
 
-            if (user.eDate > thirtyDaysAgo) {
+            if (user.sDate > thirtyDaysAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           if (filterOption.value === "yearly") {
             const currentDate = new Date();
             const yearAgo = new Date(currentDate);
             yearAgo.setDate(currentDate.getDate() - 365);
-            console.log(user.eDate, yearAgo, user.eDate > yearAgo);
-            if (user.eDate > yearAgo) {
+            if (user.sDate > yearAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           if (filterOption.value === "day") {
             const currentDate = new Date();
             const oneDayAgo = new Date(currentDate);
             oneDayAgo.setDate(currentDate.getDate() - 1);
-            console.log(user.eDate, oneDayAgo, user.eDate > oneDayAgo);
 
-            if (user.eDate > oneDayAgo) {
+            if (user.sDate > oneDayAgo) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           return acc;
         },
 
-        { users: 0, revenue: 0 }
+        { users: 0, revenue: 0, riders: [] }
       );
-      console.log(filteredData);
+      setFilteredRiders(filteredData.riders);
       setfilteredUsers(filteredData);
     }
-  }, [filterOption]);
-  console.log(filterCustom);
+  }, [filterOption, startDate, endDate]);
+
   useEffect(() => {
-    console.log(startDate, endDate, filterCustom);
     if (filterCustom) {
       const filteredData = Users.reduce(
         (acc, user) => {
           if (filterOption.value === "custom") {
-            if (user.eDate > startDate && user.eDate < endDate) {
+            if (user.sDate > startDate && user.sDate < endDate) {
               acc.users = acc.users + 1;
               acc.revenue = acc.revenue + parseInt(user.amount);
+              acc.riders = [...acc.riders, user];
             }
           }
           return acc;
         },
 
-        { users: 0, revenue: 0 }
+        { users: 0, revenue: 0, riders: [] }
       );
+      setFilteredRiders(filteredData.riders);
       setfilteredUsers(filteredData);
       setStartDate(null);
       setEndDate(null);
       setFilterCustom(false);
     }
-  }, [filterCustom]);
+  }, [filterCustom, filterOption, startDate, endDate]);
 
   return (
     <div className="mt-4">
@@ -92,6 +93,7 @@ const TopDashboard = () => {
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
+        setHitCustomfilter={setHitCustomfilter}
       />
 
       <div className="text-3xl font-bold text-slate-900 pl-4">

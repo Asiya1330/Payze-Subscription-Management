@@ -22,19 +22,38 @@ export const Users = [
       `Sat Aug 10 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
     eDate: new Date(
-      `Sat Aug 01 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+      `Sat Sept 10 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
     status: "active",
     country: "United State",
     amount: "220",
     currency: "usd",
     email: "jhon.doe@gmail.com",
+    city: "Los Angeles",
+    riderId: "rider-x231",
   },
   {
     fname: "Jhon",
     lname: "Doe",
     sDate: new Date(
-      `Sat Sept 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+      `Sat Jan 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+    ),
+    eDate: new Date(
+      `Sat Feb 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+    ),
+    status: "active",
+    country: "United State",
+    amount: "220",
+    currency: "usd",
+    email: "jhon.doe@gmail.com",
+    city: "Los Angeles",
+    riderId: "rider-x232",
+  },
+  {
+    fname: "Jhon",
+    lname: "Doe",
+    sDate: new Date(
+      `Sat Jun 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
     eDate: new Date(
       `Sat July 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
@@ -44,21 +63,8 @@ export const Users = [
     amount: "220",
     currency: "usd",
     email: "jhon.doe@gmail.com",
-  },
-  {
-    fname: "Jhon",
-    lname: "Doe",
-    sDate: new Date(
-      `Sat Jun 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
-    ),
-    eDate: new Date(
-      `Sat MAr 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
-    ),
-    status: "active",
-    country: "United State",
-    amount: "220",
-    currency: "usd",
-    email: "jhon.doe@gmail.com",
+    city: "Los Angeles",
+    riderId: "rider-x233",
   },
   {
     fname: "Jhon",
@@ -67,13 +73,15 @@ export const Users = [
       `Sat Feb 09 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
     eDate: new Date(
-      `Sat June 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+      `Sat Mar 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
-    status: "active",
+    status: "inactive",
     country: "United State",
     amount: "220",
     currency: "usd",
     email: "jhon.doe@gmail.com",
+    city: "Los Angeles",
+    riderId: "rider-x235",
   },
   {
     fname: "Jhon",
@@ -82,19 +90,38 @@ export const Users = [
       `Sat April 30 2023 05:00:00 GMT+0500 (Pakistan Standard Time`
     ),
     eDate: new Date(
-      `Sat May 11 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+      `Sat May 30 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
     ),
-    status: "active",
+    status: "inactive",
     country: "United State",
     amount: "220",
     currency: "usd",
     email: "jhon.doe@gmail.com",
+    city: "Los Angeles",
+    riderId: "rider-x236",
+  },
+  {
+    fname: "Jhon",
+    lname: "Doe",
+    sDate: new Date(
+      `Sat May 30 2023 05:00:00 GMT+0500 (Pakistan Standard Time`
+    ),
+    eDate: new Date(
+      `Sat June 30 2023 05:00:00 GMT+0500 (Pakistan Standard Time)`
+    ),
+    status: "active",
+    country: "United State",
+    amount: "340",
+    currency: "usd",
+    email: "jhon.doe@gmail.com",
+    city: "new york",
+    riderId: "rider-x236",
   },
 ];
 
 export const options = [
-    { value: "monthly", label: "Month Revenue" },
-    { value: "yearly", label: "Year Revenue" },
-    { value: "day", label: "Day Revenue" },
-    { value: "custom", label: "Custom Date Range" },
-  ];
+  { value: "monthly", label: "Month Revenue" },
+  { value: "yearly", label: "Year Revenue" },
+  { value: "day", label: "Day Revenue" },
+  { value: "custom", label: "Custom Date Range" },
+];

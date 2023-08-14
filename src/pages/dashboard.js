@@ -4,9 +4,9 @@ import Sidebar from '@/components/general/Sidebar/Sidebar';
 
 const Dashboard = () => {
   return (
-    <div className="relative lg:flex h-full">
+    <div className="relative sm:flex h-full">
       <Sidebar />
-      <div className="flex-1">
+      <div className="flex-1 sm:w-70p">
         <DashboardContent />
       </div>
     </div>
