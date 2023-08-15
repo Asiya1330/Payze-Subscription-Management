@@ -4,14 +4,13 @@ import { Users } from "@/components/DashboardContent/dashboardData";
 import { Card, ListItemText, Stack, Typography } from "@mui/material";
 
 const HistoryContent = () => {
-  const [riderId, setRiderId] = useState("");
+  const [driverId, setDriverId] = useState("");
   const [userCards, setUserCards] = useState([]);
 
   const handleSearch = () => {
     const searchData = Users.filter((user) =>
-      user.riderId.toLowerCase().includes(riderId.toLowerCase())
+      user.driverId.toLowerCase().includes(driverId.toLowerCase())
     );
-    console.log(searchData);
     setUserCards(searchData);
   };
 
@@ -21,8 +20,8 @@ const HistoryContent = () => {
         <input
           type="text"
           placeholder="Enter rider Id"
-          value={riderId}
-          onChange={(e) => setRiderId(e.target.value)}
+          value={driverId}
+          onChange={(e) => setDriverId(e.target.value)}
           className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow"
         />
         <button
@@ -41,7 +40,7 @@ const HistoryContent = () => {
             </Stack>
             <Stack direction={"row"} alignItems={"center"}>
               <Typography variant="h6">Rider-ID: &nbsp;</Typography>
-              <Typography>{userCards[0].riderId}</Typography>
+              <Typography>{userCards[0].driverId}</Typography>
             </Stack>
 
             <Stack direction={"row"} gap={4}>
@@ -86,7 +85,7 @@ const HistoryContent = () => {
             );
           })
         ) : (
-          <div className="text-red-500">No User found with that RiderId </div>
+          <div className="text-red-500">No User found with that Driver ID </div>
         )}
       </div>
     </div>

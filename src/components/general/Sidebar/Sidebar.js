@@ -5,6 +5,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import HistoryIcon from "@mui/icons-material/History";
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -13,8 +14,12 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", path: "/dashboard", src: <BarChartIcon /> },
     { title: "History", path: "/history", src: <HistoryIcon /> },
+    {
+      title: "Create Package",
+      path: "/create-package",
+      src: <SubscriptionsIcon />,
+    },
   ];
-  console.log(Menus[0].path);
   return (
     <>
       <div

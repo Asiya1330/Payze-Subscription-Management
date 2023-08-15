@@ -30,7 +30,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "Los Angeles",
-    riderId: "rider-x231",
+    driverId: "driver-x231",
   },
   {
     fname: "Jhon",
@@ -47,7 +47,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "Los Angeles",
-    riderId: "rider-x232",
+    driverId: "driver-x232",
   },
   {
     fname: "Jhon",
@@ -64,7 +64,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "Los Angeles",
-    riderId: "rider-x233",
+    driverId: "driver-x233",
   },
   {
     fname: "Jhon",
@@ -81,7 +81,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "Los Angeles",
-    riderId: "rider-x235",
+    driverId: "driver-x235",
   },
   {
     fname: "Jhon",
@@ -98,7 +98,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "Los Angeles",
-    riderId: "rider-x236",
+    driverId: "driver-x236",
   },
   {
     fname: "Jhon",
@@ -115,7 +115,7 @@ export const Users = [
     currency: "usd",
     email: "jhon.doe@gmail.com",
     city: "new york",
-    riderId: "rider-x236",
+    driverId: "driver-x236",
   },
 ];
 

@@ -11,7 +11,7 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
   const handleSearch = () => {
     if (!searchByDate) {
       const filteredUsers = users.filter((user) =>
-        user.riderId.toLowerCase().includes(searchTerm.toLowerCase())
+        user.driverId.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResult(filteredUsers);
     } else {
@@ -32,7 +32,7 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
   return (
     <div className="flex items-center px-4 justify-between  mt-8 flex-wrap">
       <div className="flex items-center">
-        <label>Search By RiderId</label>
+        <label>Search By DriverID</label>
         <FormControlLabel
           sx={{ ml: "0px" }}
           control={
@@ -51,7 +51,7 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
           <input
             type={searchByDate ? "hidden" : "text"}
             placeholder={
-              searchByDate ? "Select Start Date" : "Search by riderId"
+              searchByDate ? "Select Start Date" : "Search by driverId"
             }
             value={
               searchByDate
