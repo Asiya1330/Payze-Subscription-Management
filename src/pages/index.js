@@ -1,5 +1,4 @@
 import FormComponent from "@/components/general/form/form";
-import DriverImage from "../assets/images/driver-bg1.jpg";
 
 export default function Home() {
   return (

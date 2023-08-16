@@ -1,8 +1,10 @@
+import { useUserContext } from "@/context/auth";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const AdminSignup = () => {
   const router = useRouter();
+  const { login } = useUserContext();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -16,10 +18,9 @@ const AdminSignup = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
-    // console.log('heheh');
+    login(formData.username);
     router.push("/dashboard");
-}
+  };
   return (
     <div
       className="pb-8"
@@ -32,13 +33,13 @@ const AdminSignup = () => {
     >
       <div className=" flex flex-col items-center">
         <h1 className="text-white text-4xl font-bold mt-20 m-8">
-          Welcome To XXRIDE
+          Welcome To XXRIDE Driver
         </h1>
 
-        <div className="bg-[#00000047] text-white p-8 rounded-md shadow-lg  w-11/12 lg:w-1/2 box admin-signup h-[300px]">
-          <div className="form">
+        <div className="bg-[#28292d75] text-white p-8 rounded-md shadow-lg  w-11/12 lg:w-1/2 box admin-signup h-[300px]">
+          <div className="">
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Admin Signup Form
+              Admin Signin Form
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap -mx-2">
@@ -73,7 +74,7 @@ const AdminSignup = () => {
               </div>
               <div className="mb-4">
                 <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
-                  Signup
+                  Signin
                 </button>
               </div>
             </form>

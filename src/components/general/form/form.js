@@ -1,7 +1,13 @@
 import { useUserContext } from "@/context/auth";
+import { usePackageContext } from "@/context/subPackage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+
 const FormComponent = () => {
+  const { packages } = usePackageContext(); //{country, city} --packages contain this objects
+  const { login, user } = useUserContext();
+  const router = useRouter();
+  const [cities, setCities] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,8 +18,23 @@ const FormComponent = () => {
     govtId: "",
     rideId: "",
   });
-  const router = useRouter();
-  const { login, user } = useUserContext();
+
+  const handleCountryChange = (e) => {
+    const selectedCountry = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      country: selectedCountry,
+      city: "", // Reset the city when country changes
+    }));
+
+    // Filter cities based on the selected country
+    const countryCities = packages
+      .filter((item) => item.country === selectedCountry)
+      .map((item) => item.city);
+
+    setCities(countryCities);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -41,8 +62,8 @@ const FormComponent = () => {
         Welcome To XXRIDE Driver
       </h1>
 
-      <div className="bg-[#00000047] text-white p-8 rounded-md shadow-lg  w-11/12 lg:w-1/2 box">
-        <div className="form">
+      <div className="bg-[#28292d75] text-white p-8 rounded-md shadow-lg  w-11/12 lg:w-1/2 box">
+        <div className="form bg-[#28292d75]">
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Payment Registration Form
           </h2>
@@ -80,29 +101,43 @@ const FormComponent = () => {
                 <label htmlFor="country" className="block font-medium mb-1">
                   Country
                 </label>
-                <input
+                <select
                   required
-                  type="text"
                   id="country"
                   name="country"
                   className="w-full border rounded py-2 px-3 text-black"
                   value={formData.country}
-                  onChange={handleChange}
-                />
+                  onChange={handleCountryChange}
+                >
+                  <option value="">Select a country</option>
+                  {Array.from(
+                    new Set(packages.map((item) => item.country))
+                  ).map((country, index) => (
+                    <option key={index} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="w-full sm:w-1/2 px-2 mb-4">
                 <label htmlFor="city" className="block font-medium mb-1">
                   City
                 </label>
-                <input
+                <select
                   required
-                  type="text"
                   id="city"
                   name="city"
                   className="w-full border rounded py-2 px-3 text-black"
                   value={formData.city}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">Select a city</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="w-full sm:w-1/2 px-2 mb-4">
                 <label htmlFor="email" className="block font-medium mb-1">

@@ -1,15 +1,52 @@
 import React, { useEffect, useState } from "react";
 import TopDashboard from "./TopDashboardContent";
-import { Users } from "./dashboardData";
-import { format } from "date-fns";
 import SearchBar from "./SearchBar";
+import { CSVLink } from "react-csv";
+import { useSubscriptionContext } from "@/context/subscription";
+import moment from "moment";
 
 const DashboardContent = () => {
+  const { subscriptions } = useSubscriptionContext();
+
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [filterOption, setFilterOption] = useState(null);
-  const [riders, setRiders] = useState(Users);
+  const [riders, setRiders] = useState([]);
   const [hitCustomFilter, setHitCustomfilter] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
+  const header = [
+    "Name",
+    "Email",
+    "Driver ID",
+    "Start Date",
+    "Status",
+    "End Date",
+    "Country",
+    "City",
+    "Amount",
+    "Currency",
+  ];
+  const [csvData, setCsvData] = useState([]);
+
+  useEffect(() => {
+    setRiders(subscriptions);
+  }, [subscriptions]);
+
+  useEffect(() => {
+    setCsvData(
+      (!searchResult ? riders : searchResult).map((user) => [
+        `${user.fname} ${user.lname}`,
+        user.email,
+        user.driverId,
+        user.sDate,
+        user.status,
+        user.eDate,
+        user.country,
+        user.city,
+        user.amount,
+        user.currency,
+      ])
+    );
+  }, [searchResult, riders]);
 
   useEffect(() => {
     if (filterOption) {
@@ -29,10 +66,6 @@ const DashboardContent = () => {
     }
   }, [filterOption, hitCustomFilter, filteredRiders, riders]);
 
-  useEffect(() => {
-    console.log(searchResult);
-  }, [searchResult]);
-
   return (
     <div className="dashboard-content w-full">
       <TopDashboard
@@ -48,8 +81,18 @@ const DashboardContent = () => {
         setSearchResult={setSearchResult}
       />
 
-      <div className="mt-8"></div>
-
+      <div className=" px-8 mt-8 w-full text-right">
+        {csvData.length && (
+          <CSVLink
+            headers={header}
+            className=" bg-blue-300 p-2 rounded-md"
+            data={csvData}
+            filename={`Drivers-Data-Report-${new Date().toISOString()}.csv`}
+          >
+            Export CSV
+          </CSVLink>
+        )}
+      </div>
       <div className="flex flex-col mt-8">
         <div className="-my-2 py-2 overflow-x-auto sm:px-6 lg:px-8">
           <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -82,14 +125,14 @@ const DashboardContent = () => {
                   </th>
                   <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Currency
-                  </th>{" "}
+                  </th>
                 </tr>
               </thead>
 
               <tbody className="bg-white">
                 {(!searchResult ? riders : searchResult).map((user, index) => (
                   <tr className="hover:bg-gray-100" key={index}>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
                           <img
@@ -108,17 +151,19 @@ const DashboardContent = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.driverId}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
-                        {format(user.sDate, "EEE MMM dd yyyy HH:mm:ss")}
+                        {moment(user.sDate).format(
+                          "MMMM DD, YYYY, h:mm:ss A z"
+                        )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       {user.status === "active" ? (
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                           {user.status}
@@ -129,31 +174,33 @@ const DashboardContent = () => {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
-                        {format(user.eDate, "EEE MMM dd yyyy HH:mm:ss")}
+                        {moment(user.eDate).format(
+                          "MMMM DD, YYYY, h:mm:ss A z"
+                        )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.country}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.city}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.amount}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <td className="px-2 py-2 sm:px-6 sm:py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 font-medium text-gray-900">
                         {user.currency}
                       </div>
-                    </td>{" "}
+                    </td>
                   </tr>
                 ))}
               </tbody>

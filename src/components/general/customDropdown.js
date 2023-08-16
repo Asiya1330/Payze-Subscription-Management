@@ -12,7 +12,7 @@ const CustomDropdown = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="custom-dropdown w-full flex flex-col justify-end items-end">
+    <div className="custom-dropdown w-full flex flex-col justify-end items-end sm:mt-0">
       <div className="dropdown-header  " onClick={() => setIsOpen(!isOpen)}>
         <button className="rounded-sm bg-slate-900 text-white px-4 py-2 w-[200px] shadow-md">
         <FilterListIcon />{selectedOption ? selectedOption.label : "Select Filter"}

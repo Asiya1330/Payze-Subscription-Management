@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Chip, Stack } from "@mui/material";
-import { format } from "date-fns";
+import moment from "moment";
 
 const RenderCardContent = ({ user }) => (
   <React.Fragment>
@@ -19,9 +19,8 @@ const RenderCardContent = ({ user }) => (
         />
       </Stack>
       <Typography variant="h5" component="div">
-        {format(user.sDate, "EEE MMM dd yyyy HH:mm:ss")}{" "}
-        <span className="text-green-500">to</span>{" "}
-        {format(user.eDate, "EEE MMM dd yyyy HH:mm:ss")}
+        {user.sDate} <span className="text-green-500">to</span>{" "}
+        {moment(user.eDate).format("MMMM DD, YYYY, h:mm:ss A z")}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
         {user.email}
