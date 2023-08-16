@@ -6,9 +6,15 @@ import { useUserContext } from "@/context/auth";
 import { useRouter } from "next/router";
 
 const Navbar = () => {
-  const [notifyOpen, setNotifyOpen] = useState(false);
   const router = useRouter();
   const { user } = useUserContext();
+  const dashbordPaths = [
+    "/dashboard",
+    "/history",
+    "/driver-status",
+    "/create-package",
+    "/notifications",
+  ];
   return (
     <>
       <div className={`bg-black text-white`}>
@@ -17,29 +23,23 @@ const Navbar = () => {
             <Link href="/">
               <img
                 src={`${
-                  router.asPath === "/dashboard" || router.asPath === "/history"
+                  dashbordPaths.includes(router.asPath)
                     ? "https://xxride.com/wp-content/uploads/2022/02/Untitled-design.png"
                     : "https://xxride.com/wp-content/uploads/2021/12/font.png"
                 }`}
                 alt="XXRide Logo"
                 style={{
                   width: `${
-                    router.asPath !== "/dashboard" &&
-                    router.asPath !== "/history"
-                      ? "auto"
-                      : "129px"
+                    !dashbordPaths.includes(router.asPath) ? "auto" : "129px"
                   }`,
                   height: `${
-                    router.asPath !== "/dashboard" &&
-                    router.asPath !== "/history"
-                      ? "auto"
-                      : "43px"
+                    !dashbordPaths.includes(router.asPath) ? "auto" : "43px"
                   }`,
                 }}
               />
             </Link>
           </div>
-          {router.asPath !== "/" && router.asPath !== "/payment" && (
+          {/* {router.asPath !== "/" && router.asPath !== "/payment" && (
             <div className="relative">
               <NotificationsIcon
                 className="cursor-pointer"
@@ -47,7 +47,7 @@ const Navbar = () => {
               />
               <NotificationsCenter open={notifyOpen} />
             </div>
-          )}
+          )} */}
         </nav>
       </div>
     </>

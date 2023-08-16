@@ -5,11 +5,16 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import HistoryIcon from "@mui/icons-material/History";
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import TaxiAlertIcon from "@mui/icons-material/TaxiAlert";
+import { Badge } from "@mui/material";
+import { useNotificationContext } from "@/context/notification";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const { notifications } = useNotificationContext();
   const router = useRouter();
   const Menus = [
     { title: "Dashboard", path: "/dashboard", src: <BarChartIcon /> },
@@ -17,14 +22,24 @@ const Sidebar = () => {
     {
       title: "Create Package",
       path: "/create-package",
-      src: <SubscriptionsIcon />,
+      src: <AddCircleIcon />,
+    },
+    {
+      title: "Notifications",
+      path: "/notifications",
+      src: <CircleNotificationsIcon />,
+    },
+    {
+      title: "Drivers Status",
+      path: "/driver-status",
+      src: <TaxiAlertIcon />,
     },
   ];
   return (
     <>
       <div
         className={`${
-          open ? "sm:w-30p" : "w-fit"
+          open ? "sm:w-[20%]" : "w-fit"
         } hidden sm:block relative h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
       >
         <ArrowCircleLeftIcon
@@ -38,17 +53,28 @@ const Sidebar = () => {
           {Menus.map((menu, index) => (
             <Link href={menu.path} key={index}>
               <li
-                className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                className={`flex items-center gap-x-6 sm:gap-x-2 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
                         ${menu.gap ? "mt-9" : "mt-2"} ${
                   router.pathname === menu.path &&
                   "bg-gray-200 dark:bg-gray-700"
                 }`}
               >
-                <span className="text-2xl">{menu.src}</span>
+                {menu.path === "/notifications" ? (
+                  <Badge
+                    badgeContent={
+                      notifications.filter((noti) => !noti.isRead).length
+                    }
+                    color="primary"
+                  >
+                    <span className="text-2xl">{menu.src}</span>
+                  </Badge>
+                ) : (
+                  <span className="text-2xl">{menu.src}</span>
+                )}
                 <span
                   className={`${
                     !open && "hidden"
-                  } origin-left duration-300 hover:block`}
+                  } origin-left duration-300 hover:block truncate `}
                 >
                   {menu.title}
                 </span>
@@ -68,13 +94,13 @@ const Sidebar = () => {
         <div
           className={`${
             mobileMenu ? "flex" : "hidden"
-          } absolute z-50 flex-col items-center self-end py-8 mt-16 space-y-6 font-bold sm:w-auto left-6 right-6 dark:text-white  bg-gray-50 dark:bg-slate-800 drop-shadow md rounded-xl`}
+          } absolute z-50 flex-col self-end mt-16 space-y-6 font-bold sm:w-auto left-6 right-6 dark:text-white  bg-gray-50 dark:bg-slate-800 drop-shadow md rounded-xl`}
         >
           {Menus.map((menu, index) => (
-            <Link href={menu.path} key={index}>
+            <Link href={menu.path} key={index} className="m-0">
               <li
-                className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-                        ${menu.gap ? "mt-9" : "mt-2"} ${
+                className={`flex items-center gap-x-6 sm:gap-x-2 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                        ${menu.gap ? "mt-9" : "mt-0"} ${
                   router.pathname === menu.path &&
                   "bg-gray-200 dark:bg-gray-700"
                 }`}
@@ -83,7 +109,7 @@ const Sidebar = () => {
                 <span
                   className={`${
                     !open && "hidden"
-                  } origin-left duration-300 hover:block`}
+                  } origin-left duration-300 hover:block truncate`}
                 >
                   {menu.title}
                 </span>

@@ -16,9 +16,10 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
       setSearchResult(filteredUsers);
     } else {
       const filteredUsers = users.filter((user) => {
-        user.sDate.setHours(0, 0, 0, 0);
+        const startDBDate = new Date(user.sDate)
+        startDBDate.setHours(0, 0, 0, 0);
         selectedDate.setHours(0, 0, 0, 0);
-        return user.sDate.getTime() === selectedDate.getTime();
+        return startDBDate.getTime() === selectedDate.getTime();
       });
       setSearchResult(filteredUsers);
     }
@@ -32,7 +33,7 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
   return (
     <div className="flex items-center px-4 justify-between  mt-8 flex-wrap">
       <div className="flex items-center">
-        <label>Search By DriverID</label>
+        <label>Search By Driver ID</label>
         <FormControlLabel
           sx={{ ml: "0px" }}
           control={
@@ -51,7 +52,7 @@ const SearchBar = ({ users, setSearchResult, searchResult }) => {
           <input
             type={searchByDate ? "hidden" : "text"}
             placeholder={
-              searchByDate ? "Select Start Date" : "Search by driverId"
+              searchByDate ? "Select Start Date" : "Search by Driver ID"
             }
             value={
               searchByDate
